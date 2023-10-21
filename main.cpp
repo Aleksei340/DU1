@@ -28,6 +28,7 @@ int checkInWhichWindow(click entry, vector<window>& windows) {
                 return i;
         }
     }
+    return 0;
 }
 
 int main() {
@@ -67,5 +68,26 @@ int main() {
                        i, windows[i].clicks)
              << endl;
     }
+
+    // SVG part of the task
+    SVGdraw drawing(windows[0].x2, windows[0].y2, "okna.svg");
+
+    drawing.setFillColor("white");
+
+    for(int i = 0; i < windows.size(); i++) {
+        window temp = windows[i];
+        drawing.setLineColor(farby[temp.f]);
+        drawing.drawRectangle(temp.x1, temp.y1, temp.x2, temp.y2);
+    }
+
+    for(int i = 0; i < clicks.size(); i++) {
+        click temp = clicks[i];
+        drawing.setFillColor(farby[windows[temp.windowNumber].f]);
+        drawing.setLineColor(farby[windows[temp.windowNumber].f]);
+        drawing.drawEllipse(temp.x, temp.y, 2, 2);
+    }
+
+    drawing.finish();
+
     return 0;
 }
